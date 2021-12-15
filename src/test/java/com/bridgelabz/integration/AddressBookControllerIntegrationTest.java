@@ -3,6 +3,7 @@ package com.bridgelabz.integration;
 import com.bridgelabz.controller.AddressBookController;
 import com.bridgelabz.dto.AddressBookDTO;
 import com.bridgelabz.dto.ResponseDTO;
+import com.bridgelabz.entity.AddressBook;
 import com.bridgelabz.service.AddressBookService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,9 +45,17 @@ public class AddressBookControllerIntegrationTest {
     }
 
     @Test
-    void getAddressDetails() throws Exception {
+    void getAddressDetailsTest() throws Exception {
         when(addressBookService.getAddressDetails()).thenReturn(new ArrayList<>());
         mockMvc.perform(MockMvcRequestBuilders.get("/addresses"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAddressDetailsByIdTest() throws Exception {
+        AddressBook addressBook = new AddressBook();
+        when(addressBookService.findAddressDetailsById(1)).thenReturn(addressBook);
+        mockMvc.perform(MockMvcRequestBuilders.get("/address/1"))
                 .andExpect(status().isOk());
     }
 
