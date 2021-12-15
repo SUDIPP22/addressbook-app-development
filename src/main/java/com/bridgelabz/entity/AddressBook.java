@@ -20,25 +20,25 @@ public class AddressBook {
     @Column(name = "ADDRESS_ID")
     private int id;
 
-    @Column(name = "FIRST_NAME", nullable = false)
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "LAST_NAME", nullable = false)
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "ADDRESS", nullable = false)
+    @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "CITY", nullable = false)
+    @Column(name = "CITY")
     private String city;
 
-    @Column(name = "STATE", nullable = false)
+    @Column(name = "STATE")
     private String state;
 
-    @Column(name = "PHONE_NUMBER", unique = true, nullable = false)
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name = "ZIP_CODE", nullable = false)
+    @Column(name = "ZIP_CODE")
     private String zipCode;
 
 }
