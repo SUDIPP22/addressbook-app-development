@@ -45,6 +45,18 @@ public class AddressBookControllerIntegrationTest {
     }
 
     @Test
+    void addAddressBookTest_WhenValidationFailed_ShouldGetBadRequest() throws Exception {
+        when(addressBookService.addAddressBook(any())).thenReturn(new ResponseDTO());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/address")
+                        .content("{\"firstName\":\"Sudip\",\"lastName\":\"panja\"," +
+                                "\"address\":\"1/A/7,RamlalAgarWalaLane\",\"city\":\"Kolkata\"," +
+                                "\"state\":\"West Bengal\",\"phoneNumber\":\"918910211371\",\"zipCode\":7000501}")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void getAddressDetailsTest() throws Exception {
         when(addressBookService.getAddressDetails()).thenReturn(new ArrayList<>());
         mockMvc.perform(MockMvcRequestBuilders.get("/addresses"))
@@ -78,6 +90,27 @@ public class AddressBookControllerIntegrationTest {
                                 "\"state\":\"West Bengal\",\"phoneNumber\":\"91 8910211371\",\"zipCode\":700050}")
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isAccepted());
+    }
+
+    @Test
+    void updateAddressBookTest_WhenValidationFailed_ShouldGetBadRequest() throws Exception {
+        AddressBookDTO addressBookDTO = new AddressBookDTO();
+        addressBookDTO.setFirstName("Naruto");
+        addressBookDTO.setLastName("Uzumaki");
+        addressBookDTO.setAddress("Uzumaki Clan");
+        addressBookDTO.setCity("Hidden Leaf Village");
+        addressBookDTO.setState("Konohagakure");
+        addressBookDTO.setPhoneNumber("91 8334003795");
+        addressBookDTO.setZipCode("100026");
+        int addressId = 1;
+        when(addressBookService.updateAddressBook(addressId, addressBookDTO)).thenReturn(new ResponseDTO());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/address/1")
+                        .content("{\"firstName\":\"sudip\",\"lastName\":\"panja\"," +
+                                "\"address\":\"1/A/7,RamlalAgarWalaLane\",\"city\":\"Kolkata\"," +
+                                "\"state\":\"West Bengal\",\"phoneNumber\":\"91 89102113717\",\"zipCode\":7000550}")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
